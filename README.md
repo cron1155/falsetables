@@ -4,7 +4,7 @@ Generate fake data to use in your databases or in your spreadsheet with ease!
 
 ### Examplse :
 
-```
+```json
 {
   "_constants": {
     "MIN": "1",
