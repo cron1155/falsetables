@@ -4,6 +4,13 @@ Generate fake data to use in your databases or in your spreadsheet with ease!
 
 ### Examplse :
 
+| Function Name | Params     | Description                                  |
+| ------------- | ---------- | -------------------------------------------- |
+| id            | none       | Returns the current row index                |
+| rand          | [low,high] | Returns a random number between low and high |
+| first_name    | none       | Returns a random first name                  |
+| last_name     | none       | Returns a random last name                   |
+
 ```json
 {
   "_constants": {

@@ -1,3 +1,4 @@
+import FSParser from "./parser"
 
 export interface SchemaColumn {
     [key: string]: {
@@ -22,3 +23,8 @@ export interface TablesSchemaBody {
 
 export type TablesSchema = TablesSchemaBody & TablesSchemaBody
 
+export type GFunction = (functionName: string, args: string[], rowId: number, parserInstance: FSParser) => string | number
+
+export interface GlobalFunctions {
+    [key: string]: GFunction
+}

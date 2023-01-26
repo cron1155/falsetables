@@ -2,6 +2,8 @@ import { faker } from "@faker-js/faker"
 import _ from "lodash"
 import { TablesSchema } from "./types"
 
+import globalFunctions from "./functions"
+
 class FSParser {
 
     tables: any[] = []
@@ -25,25 +27,16 @@ class FSParser {
         })
     }
 
-    dataGeneration(dataType: string, args: string[], rowId: number) {
-        switch (dataType) {
-            case "ID":
-                return rowId;
-            case "RAND":
-                if (!args || args.length === 0 || args.length > 2) {
-                    throw Error("Args don't match")
-                }
+    dataGeneration(functionName: string, args: string[], rowId: number) {
 
-                const formatedArgs = this.parseConstants(args)
+        const func = globalFunctions[functionName.toLowerCase()];
 
-                return _.random(parseInt(formatedArgs[0]), parseInt(formatedArgs[1]));
-            case "FIRST_NAME":
-                return faker.name.firstName();
-            case "LAST_NAME":
-                return faker.name.lastName();
-            default:
-                throw Error(`Something is wrong with the data blueprint!`)
+        if (!func) {
+            throw Error(`Function ${functionName} isn't valid!`)
         }
+
+        return func(functionName, args, rowId, this)
+
     }
 
     parseSchema() {
