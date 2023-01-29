@@ -28,3 +28,10 @@ export type GFunction = (functionName: string, args: string[], rowId: number, pa
 export interface GlobalFunctions {
     [key: string]: GFunction
 }
+
+export type Table = {
+    tableName: string,
+    rows: any[]
+}
+
+export type Tables = Table[]

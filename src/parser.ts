@@ -1,12 +1,12 @@
 import { faker } from "@faker-js/faker"
 import _ from "lodash"
-import { TablesSchema } from "./types"
+import { Table, Tables, TablesSchema } from "./types"
 
 import globalFunctions from "./functions"
 
 class FSParser {
 
-    tables: any[] = []
+    tables: Tables = []
 
     constants: { [key: string]: any } = {}
 
@@ -63,9 +63,9 @@ class FSParser {
 
             const entrySize = this.tablesSchema[schema]['_columnRowCount'] ?? 0
 
-            const table = {
-                name: schema,
-                entries: new Array()
+            const table: Table = {
+                tableName: schema,
+                rows: new Array()
             }
 
             for (let i = 0; i < entrySize; i++) {
@@ -89,7 +89,7 @@ class FSParser {
                     }
                 }
 
-                table.entries.push(entry)
+                table.rows.push(entry)
             }
 
             this.tables.push(table)
