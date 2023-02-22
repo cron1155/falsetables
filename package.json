@@ -1,11 +1,11 @@
 {
   "name": "mockupgen",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Generate mockup data using json and export it to SQL or other formats.",
   "scripts": {
     "build": "npx tsc",
     "dev": "ts-node src/main.ts",
-    "prepublish": "npx tsc",
+    "prepublishOnly": "npx tsc",
     "cli": "ts-node src/cli.ts"
   },
   "keywords": [
