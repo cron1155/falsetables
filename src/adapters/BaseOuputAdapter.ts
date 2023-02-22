@@ -1,5 +1,10 @@
 import { Tables, TablesSchema } from "../types";
 
-export interface BaseOuputAdapter {
-    generateOutput(schema: TablesSchema, parserOutput: Tables): string
+export class BaseOuputAdapter {
+    fileFormat(): string {
+        return ""
+    }
+    generateOutput(schema: TablesSchema, parserOutput: Tables): string {
+        return ""
+    }
 }

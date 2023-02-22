@@ -1,5 +1,6 @@
 import { readFileSync, readSync, writeFileSync } from "fs"
 import { BaseOuputAdapter } from "./adapters/BaseOuputAdapter"
+import SqlOutputAdapter from "./adapters/SqlOutputAdapter"
 import { parseArgs } from "./cli-utils"
 import Parser from "./parser"
 import { Tables, TablesSchema, TablesSchemaBody } from "./types"
@@ -7,18 +8,14 @@ import { Tables, TablesSchema, TablesSchemaBody } from "./types"
 interface OutputAdapters {
     [key: string]: {
         description: string,
-        adapter: BaseOuputAdapter
+        adapter: typeof BaseOuputAdapter
     }
 }
 
 const outputAdapters: OutputAdapters = {
     "sql": {
         description: "Generates an sql file with all the tables",
-        adapter: new class a implements BaseOuputAdapter {
-            generateOutput(schema: TablesSchemaBody, parserOutput: Tables): string {
-                throw new Error("Method not implemented.")
-            }
-        }
+        adapter: SqlOutputAdapter
     }
 }
 
@@ -70,6 +67,12 @@ async function main() {
         if (!outputAdapter) {
             throw new Error("Invalid output adapter!");
         }
+
+        const adapterInstance = new outputAdapter.adapter()
+
+        const outputData = adapterInstance.generateOutput(schema, parser.tables)
+
+        writeFileSync(outputDirectory + fileName + "_output" + adapterInstance.fileFormat(), outputData)
     }
 }
 

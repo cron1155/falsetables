@@ -21,7 +21,7 @@ export interface TablesSchemaBody {
     [key: string]: SchemaColumnOptions & SchemaColumn
 }
 
-export type TablesSchema = TablesSchemaBody & TablesSchemaBody
+export type TablesSchema = TablesSchemaBody
 
 export type GlobalFunction = (functionName: string, args: string[], rowId: number, parserInstance: FSParser) => string | number
 
