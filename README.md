@@ -17,6 +17,12 @@ json : Default adapter
 sql : Generates an sql file with all the tables
 ```
 
+### Installation
+
+```
+npm install -g mockupgen
+```
+
 ### Examplse :
 
 | Function Name | Params     | Description                                  |
