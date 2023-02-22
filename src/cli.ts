@@ -55,7 +55,7 @@ async function main() {
     parser.parseSchema()
 
     const outputFormat = args.get("out")
-    const outputDirectory = args.get("dir") ? args.get("dir") : process.cwd()
+    const outputDirectory = args.get("dir") ? args.get("dir") : process.cwd() + "/"
 
     if (!outputFormat || outputFormat.toLowerCase() === "json") {
         writeFileSync(outputDirectory + fileName + "_output" + ".json", JSON.stringify(parser.tables, undefined, 4))
@@ -72,7 +72,9 @@ async function main() {
 
         const outputData = adapterInstance.generateOutput(schema, parser.tables)
 
-        writeFileSync(outputDirectory + fileName + "_output" + adapterInstance.fileFormat(), outputData)
+        const filePath = outputDirectory + fileName + "_output" + adapterInstance.fileFormat()
+
+        writeFileSync(filePath, outputData)
     }
 }
 
