@@ -4,7 +4,7 @@ import { Table, Tables, TablesSchema } from "./types"
 
 import globalFunctions from "./functions"
 
-class FSParser {
+class Parser {
 
     tables: Tables = []
 
@@ -98,4 +98,4 @@ class FSParser {
 }
 
 
-export default FSParser
+export default Parser

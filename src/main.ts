@@ -3,7 +3,7 @@ import { exit } from "process"
 
 import * as _ from 'lodash'
 import { faker } from "@faker-js/faker"
-import FSParser from "./parser"
+import Parser from "./parser"
 import { TablesSchema } from "./types"
 
 function main() {
@@ -11,7 +11,7 @@ function main() {
 
     const schema: TablesSchema = JSON.parse(rawSchema)
 
-    const parser = new FSParser(schema)
+    const parser = new Parser(schema)
 
     try {
         parser.parseSchema()
