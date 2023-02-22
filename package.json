@@ -1,5 +1,5 @@
 {
-  "name": "falsetables",
+  "name": "mockupgen",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bin": {},
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "commander": "^10.0.0",

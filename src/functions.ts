@@ -3,7 +3,6 @@ import _ from "lodash";
 import { GlobalFunctions } from "./types";
 
 
-
 const globalFunctions: GlobalFunctions = {
     "id": (functionName, args, rowId, parserInstance) => {
         return `${rowId}`

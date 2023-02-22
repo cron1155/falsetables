@@ -1,6 +1,6 @@
-# FalseTable
+# Mockup-Gen
 
-Generate fake data to use in your databases or in your spreadsheet with ease!
+Generate mockup data using json and export it to SQL or other formats.
 
 ### Examplse :
 
