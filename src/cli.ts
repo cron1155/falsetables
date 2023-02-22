@@ -27,6 +27,7 @@ async function main() {
     const schemaInputPath: string = args.get("input")
 
     if (!schemaInputPath) {
+        console.info("mockupgen \n")
         console.info("CLI tool to generate mockup date based on a json schema.")
         console.info("NOTE: You don't need to specify the extension for the schema");
         console.info("\nUsage: mockup-gen ./storesShema")

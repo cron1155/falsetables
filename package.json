@@ -1,17 +1,24 @@
 {
   "name": "mockupgen",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "Generate mockup data using json and export it to SQL or other formats.",
   "scripts": {
     "build": "npx tsc",
     "dev": "ts-node src/main.ts",
     "cli": "ts-node src/cli.ts"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "mockup",
+    "data",
+    "generation",
+    "sql",
+    "json"
+  ],
+  "author": "cron1155",
   "license": "ISC",
-  "bin": {},
+  "bin": {
+    "mockupgen": "dist/cli.js"
+  },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "commander": "^10.0.0",
