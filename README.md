@@ -1,4 +1,4 @@
-# Mockup-Gen
+# MockupGen
 
 Generate mockup data using json and export it to SQL or other formats.
 
