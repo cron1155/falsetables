@@ -6,7 +6,7 @@ Generate mockup data using json and export it to SQL or other formats.
 CLI tool to generate mockup date based on a json schema.
 NOTE: You don't need to specify the extension for the schema
 
-Usage: mockup-gen ./storesShema
+Usage: mockupgen ./storesShema
 
 Arguments:
 -dir, --dir  : Specify the output directory for the generated data

@@ -30,7 +30,7 @@ async function main() {
         console.info("mockupgen \n")
         console.info("CLI tool to generate mockup date based on a json schema.")
         console.info("NOTE: You don't need to specify the extension for the schema");
-        console.info("\nUsage: mockup-gen ./storesShema")
+        console.info("\nUsage: mockupgen ./storesShema")
         console.info("\nArguments:")
         console.info("-dir, --dir  : Specify the output directory for the generated data")
         console.info("-out, --out  : Specify the output adapter used to the generated data (by default the output format is JSON)")
@@ -76,6 +76,8 @@ async function main() {
         const filePath = outputDirectory + fileName + "_output" + adapterInstance.fileFormat()
 
         writeFileSync(filePath, outputData)
+
+        console.log("Data generated!")
     }
 }
 
