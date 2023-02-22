@@ -7,11 +7,31 @@ class SqlOutputAdapter extends BaseOuputAdapter {
         return '.sql'
     }
 
-    generateOutput(schema: TablesSchemaBody, parserOutput: Tables): string {
-        console.log(schema)
-        console.log(parserOutput[0].rows)
+    /**TODO: Instead of doing hardcoded if checks use the type specified in the shema */
+    formatValue(val: unknown) {
+        if (val === 0 || val === "0" || parseInt(val as string, 10)) {
+            return parseInt(val as string, 10)
+        } else if (typeof val === "string") {
+            return "\'" + val + "\'"
+        } else {
+            return val;
+        }
+    }
 
-        throw new Error("Method not implemented.");
+    generateOutput(schema: TablesSchemaBody, parserOutput: Tables): string {
+
+        let outputString = ""
+
+        for (const table of parserOutput) {
+            const tableColumns = Object.keys(table.rows[0]).join(",")
+
+            for (const row of table.rows) {
+                outputString += "INSERT INTO " + table.tableName + " (" + tableColumns + ")";
+                outputString += "\nVALUES (" + Object.values(row).map((val) => this.formatValue(val)).join(",") + "); \n"
+            }
+        }
+
+        return outputString
     }
 }
 
