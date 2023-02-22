@@ -1,46 +1,76 @@
+import { readFileSync, readSync, writeFileSync } from "fs"
+import { BaseOuputAdapter } from "./adapters/BaseOuputAdapter"
+import { parseArgs } from "./cli-utils"
+import Parser from "./parser"
+import { Tables, TablesSchema, TablesSchemaBody } from "./types"
 
-function parseArgs(argsDef: { argName: string, argType: string }[], args: string[]) {
-
-    const argsData = new Map()
-
-    if (args[0]) {
-        argsData.set("input", args[0])
+interface OutputAdapters {
+    [key: string]: {
+        description: string,
+        adapter: BaseOuputAdapter
     }
+}
 
-    for (const argDef of argsDef) {
-        const argIndex = args.findIndex((val) => {
-            if (val.substring(0, 2) === "--") {
-                return val.substring(2, val.length) === argDef.argName
-            } else if (val[0] === "-") {
-                return val.substring(1, val.length) === argDef.argName
+const outputAdapters: OutputAdapters = {
+    "sql": {
+        description: "Generates an sql file with all the tables",
+        adapter: new class a implements BaseOuputAdapter {
+            generateOutput(schema: TablesSchemaBody, parserOutput: Tables): string {
+                throw new Error("Method not implemented.")
             }
-        })
-
-        if (argIndex === -1) continue;
-
-        const argValue = args[argIndex + 1]
-
-        if (!argValue) {
-            throw new Error(`${argDef.argName} value is undefined!`);
         }
-
-        argsData.set(argDef.argName, argValue)
     }
-
-    return argsData
 }
 
 async function main() {
     const args = parseArgs([{
-        argName: "output-type", 'argType': "string"
-    }], process.argv.slice(2))
+        argName: "dir", argType: "string",
+    }, { argName: "out", argType: "string" }], process.argv.slice(2))
 
-    if (!args.get("input")) {
-        console.info("A")
+    const schemaInputPath: string = args.get("input")
+
+    if (!schemaInputPath) {
+        console.info("CLI tool to generate mockup date based on a json schema.")
+        console.info("NOTE: You don't need to specify the extension for the schema");
+        console.info("\nUsage: mockup-gen ./storesShema")
+        console.info("\nArguments:")
+        console.info("-dir, --dir  : Specify the output directory for the generated data")
+        console.info("-out, --out  : Specify the output adapter used to the generated data (by default the output format is JSON)")
+
+        console.info("\nOutput Adapters:")
+        console.info("json : Default adapter")
+
+        for (const i in outputAdapters) {
+            console.info(i + " : " + outputAdapters[i].description)
+        }
+
+        return;
     }
 
-    console.log(args.get("input"))
-    console.log(args.get("output-type"))
+    const fileName = schemaInputPath.substring(schemaInputPath.lastIndexOf("/") + 1, schemaInputPath.length)
+
+    const mockupSchema = readFileSync(schemaInputPath + ".json", 'utf-8');
+
+    const schema: TablesSchema = JSON.parse(mockupSchema)
+
+    const parser = new Parser(schema)
+
+    parser.parseSchema()
+
+    const outputFormat = args.get("out")
+    const outputDirectory = args.get("dir") ? args.get("dir") : process.cwd()
+
+    if (!outputFormat || outputFormat.toLowerCase() === "json") {
+        writeFileSync(outputDirectory + fileName + "_output" + ".json", JSON.stringify(parser.tables, undefined, 4))
+
+        console.log("Data generated!")
+    } else {
+        const outputAdapter = outputAdapters[outputFormat]
+
+        if (!outputAdapter) {
+            throw new Error("Invalid output adapter!");
+        }
+    }
 }
 
 main()

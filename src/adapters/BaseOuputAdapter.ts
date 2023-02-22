@@ -1,5 +1,5 @@
 import { Tables, TablesSchema } from "../types";
 
-export interface IOutputAdapter {
+export interface BaseOuputAdapter {
     generateOutput(schema: TablesSchema, parserOutput: Tables): string
 }
