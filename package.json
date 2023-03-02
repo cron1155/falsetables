@@ -1,6 +1,6 @@
 {
   "name": "mockupgen",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Generate mockup data using json and export it to SQL or other formats.",
   "scripts": {
     "build": "npx tsc",
@@ -15,6 +15,10 @@
     "sql",
     "json"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cron1155/mockup-gen.git"
+  },
   "author": "cron1155",
   "license": "ISC",
   "bin": {
